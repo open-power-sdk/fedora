@@ -65,7 +65,7 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/libpvec.a
 
 %changelog
-* Tue Jul 30 2019 Munroe S <munroesj52@gmail.com> 1.0.3
+* Tue Jul 30 2019 Munroe S <munroesj52@gmail.com> 1.0.3-1
 - Updates for RPM release.
 * Mon Jul 22 2019 Munroe S <munroesj52@gmail.com> 1.0.2y-1
 - Updates for RPM pre-release.
