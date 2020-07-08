@@ -1,5 +1,5 @@
 Name:    pveclib
-Version: 1.0.3
+Version: 1.0.4alpha1
 Release: 1%{?dist}
 Summary: Library for simplified access to PowerISA vector operations
 License: ASL 2.0
@@ -48,12 +48,17 @@ make check || :
 
 # we are installing it using doc
 find %{buildroot} -type f -name "*.la" -delete
+find %{buildroot} -type f -name "libpvec.a" -delete
+find %{buildroot} -type l -name "libpvecstatic.so" -delete
+find %{buildroot} -type l -name "libpvecstatic.so.0" -delete
+find %{buildroot} -type f -name "libpvecstatic.so.0.0.0" -delete
+find %{buildroot} -type f -name "libpvecstatic.so.0.0.0*.debug" -delete
 
 %files
 %license LICENSE COPYING
 %doc COPYING README.md CONTRIBUTING.md ChangeLog.md
-%{_libdir}/libpvec.so.0
-%{_libdir}/libpvec.so.0.0.0
+%{_libdir}/libpvec.so.1
+%{_libdir}/libpvec.so.1.0.4
 
 %files devel
 %doc README.md
@@ -62,9 +67,11 @@ find %{buildroot} -type f -name "*.la" -delete
 
 %files static
 %doc README.md
-%{_libdir}/libpvec.a
+%{_libdir}/libpvecstatic.a
 
 %changelog
+* Tue Jul 07 2020 Munroe S <munroesj52@gmail.com> 1.0.4alpha1-1
+- Updates for RPM pre-release.
 * Tue Jul 30 2019 Munroe S <munroesj52@gmail.com> 1.0.3-1
 - Updates for RPM release.
 * Mon Jul 22 2019 Munroe S <munroesj52@gmail.com> 1.0.2y-1
