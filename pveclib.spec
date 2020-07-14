@@ -1,6 +1,6 @@
 Name:    pveclib
 Version: 1.0.4alpha1
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: Library for simplified access to PowerISA vector operations
 License: ASL 2.0
 URL:     https://github.com/open-power-sdk/pveclib
@@ -8,6 +8,7 @@ Source0: https://github.com/open-power-sdk/pveclib/archive/v%{version}.tar.gz
 
 ExclusiveArch: ppc %{power64}
 BuildRequires: libtool autoconf-archive gcc-c++
+%{?el7:BuildRequires: devtoolset-9-gcc-c++}
 
 %description
 A library of useful vector operations for PowerISA 2.06 or later. Pveclib
@@ -36,6 +37,7 @@ So far only constant vectors used in conversions.
 %autosetup
 
 %build
++%{?el7:source /opt/rh/devtoolset-9/enable}
 %configure --docdir=%{_docdir}/%{name}
 %make_build
 
@@ -43,6 +45,7 @@ So far only constant vectors used in conversions.
 %make_install
 
 %check
+%{?el7:source /opt/rh/devtoolset-9/enable}
 # do not fail on test failures as builder might not support all required features
 make check || :
 
@@ -59,6 +62,8 @@ find %{buildroot} -type f -name "libpvecstatic.so.0.0.0*.debug" -delete
 %doc COPYING README.md CONTRIBUTING.md ChangeLog.md
 %{_libdir}/libpvec.so.1
 %{_libdir}/libpvec.so.1.0.4
++%{?el7:%exclude %{_docdir}/%{name}}
++%{?el7:%exclude %{_datadir}/licenses/%{name}}
 
 %files devel
 %doc README.md
@@ -72,6 +77,9 @@ find %{buildroot} -type f -name "libpvecstatic.so.0.0.0*.debug" -delete
 %changelog
 * Tue Jul 07 2020 Munroe S <munroesj52@gmail.com> 1.0.4alpha1-1
 - Updates for RPM pre-release.
+* Fri Jul  3 2020 Dave Love <loveshack@fedoraproject.org> - 1.0.3-3
+- BR devtoolset on el7
+- Fix duplicated doc and licence installation on el7
 * Tue Jul 30 2019 Munroe S <munroesj52@gmail.com> 1.0.3-1
 - Updates for RPM release.
 * Mon Jul 22 2019 Munroe S <munroesj52@gmail.com> 1.0.2y-1
